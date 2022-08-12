@@ -1,12 +1,13 @@
 // after react v17 , we do not need to use
 // import React from react;
 import { BrowserRouter , Routes, Route } from "react-router-dom";
-import Navbar from "./components/General/navbar";
+import Navbar from "./components/General/Navbar";
 // if used several times (Button, Panel, Avatar),
 // or is complex enough on its own (App, FeedStory, Comment) ==> seperate components
-import Home from "./pages/home";
-import LogIn from "./components/General/logIn";
-import NotFound from "./components/notFound";
+import Home from "./pages/Home";
+import LogIn from "./components/General/LogIn";
+import NotFound from "./components/NotFound";
+import Footer from "./components/General/Footer";
 
 function App() {
   // const element = <h1>Hello, world!</h1>; // JSX is a syntax extension to JavaScript
@@ -21,8 +22,10 @@ function App() {
         <Route path="/notfound" element={<NotFound />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }
+
 
 export default App;
