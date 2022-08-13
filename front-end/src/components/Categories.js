@@ -8,7 +8,7 @@ const Categories = ({ categories, filterItems }) => {
          
           <button
             type="button"
-            className=" mx-3 my-2 p-2 hover:bg-indigo-600 hover:text-white rounded"
+            className=" mx-3 mt-2 p-2 hover:bg-indigo-600 hover:text-white rounded"
             key={index}
             onClick={() => filterItems(category)}
           >
