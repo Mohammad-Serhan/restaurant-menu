@@ -8,7 +8,9 @@ function emptyButton(text) {
 
 function primaryButton(text) {
   return (
-    <button className="inline-flex items-center bg-indigo-500 text-white rounded m-2 px-4 py-2 hover:bg-indigo-400 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-indigo-700">
+    <button
+      className="inline-flex items-center bg-indigo-500 text-white rounded m-2 px-4 py-2 hover:bg-indigo-400 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-indigo-700"
+    >
       {text}
     </button>
   );
@@ -16,8 +18,40 @@ function primaryButton(text) {
 
 function primaryPlusButton(text) {
   return (
-    <button className="inline-flex items-center text-2xl bg-indigo-600 text-white rounded m-2 px-3 py-2 hover:bg-indigo-400 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-indigo-700">
-      +
+    <button className="inline-flex items-center bg-indigo-500 text-white rounded m-2 px-4 py-2 hover:bg-indigo-400 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-indigo-700">
+      <svg
+        className="w-6 h-6"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+      >
+        <path
+          fillRule="evenodd"
+          d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+          clipRule="evenodd"
+        />
+      </svg>
+      {text}
+    </button>
+  );
+}
+
+function primaryCloseButton(text) {
+  return (
+    <button className="inline-flex items-center bg-indigo-500 text-white rounded m-2 px-4 py-2 hover:bg-indigo-400 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-indigo-700">
+      <svg
+        className="h-6 w-6"
+        stroke="currentColor"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <path
+          className="inline-flex"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M6 18L18 6M6 6l12 12"
+        ></path>
+      </svg>
     </button>
   );
 }
@@ -98,6 +132,7 @@ function Button({ text = "Button", type = "primary" }) {
     empty: emptyButton,
     primary: primaryButton,
     primaryPlus: primaryPlusButton,
+    primaryClose: primaryCloseButton,
     secondary: secondaryButton,
     secondaryPlus: secondaryPlusButton,
     facebook: facebookButton,
