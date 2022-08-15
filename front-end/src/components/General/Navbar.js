@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Avatar from "./Avatar";
+
 
 // [1] All React components must act like pure functions(does not change inputs) with respect to their props.
 
@@ -58,10 +60,11 @@ const Navbar = () => {
                     </span>
                   </Link>
                   <div className="group ml-4 relative inline-block text-left">
-                    <img
+                    <Avatar
                       alt="avatar"
-                      className="h-10 w-10 shadow-inner rounded-full"
-                      src="https://cdn.laimoon.com/64784563374-default-avatar.png"
+                      url="https://img.icons8.com/external-dreamstale-lineal-dreamstale/344/external-avatar-avatars-dreamstale-lineal-dreamstale.png"
+                      size="medium"
+                      classes="shadow-inner rounded-full bg-gray-400 p-1"
                     />
 
                     <div className="hidden group-hover:block origin-top-left absolute right-0 z-50 w-32 border rounded-lg shadow-lg">
