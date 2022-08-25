@@ -15,9 +15,7 @@ function Menu({ items, deleteItem, editItem }) {
           size="medium"
           url="https://cdn2.iconfinder.com/data/icons/harmony-ui-part-2-1/63/clipboard-search-256.png"
         />
-
         <span className="text-gray-600 font-bold mt-3">No items found!</span>
-      
       </div>
     );
   }
@@ -28,7 +26,7 @@ function Menu({ items, deleteItem, editItem }) {
         {items.map((item, index) => (
           <div
             key={item.id}
-            className="p-1 my-2 md:w-1/2 lg:w-2/5 w-full lg:mx-auto"
+            className=" my-2 md:w-1/2 lg:w-2/5 w-full lg:mx-auto"
           >
             <div className="h-full  flex justify-between  border-gray-200 border  rounded-lg">
               <Avatar size="large" url={item.img} alt={item.title} />
@@ -49,10 +47,12 @@ function Menu({ items, deleteItem, editItem }) {
                   <div>
                     <button
                       onClick={() => {
-                        editItem(index);
-                        setAllowEdit(true);
+                        // editItem(index);
+                        // setAllowEdit(true);
                       }}
-                      className="inline mx-2 bg-green-500 text-white rounded  hover:bg-indigo-400 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-indigo-700"
+                      id="open-editItem"
+                      data-modal-toggle="small-modal"
+                      className=" block inline mx-2 bg-green-500 text-white rounded  hover:bg-indigo-400 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-indigo-700"
                     >
                       <svg
                         className="h-6 w-6 fill-white"
@@ -118,6 +118,10 @@ function Menu({ items, deleteItem, editItem }) {
           </div>
         ))}
       </div>
+
+
+
+
     </div>
   );
 }
