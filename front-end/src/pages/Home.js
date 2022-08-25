@@ -71,6 +71,7 @@ const Home = () => {
 
   return (
     <main className="mx-auto flex flex-col my-6">
+      
       <div className="text-center">
         <h2 className="text-3xl inline-block mr-5 ">our menu</h2>
         <div className="flex justify-center">
