@@ -34,11 +34,11 @@ const Navbar = () => {
     <div className="z-50">
       <nav className="bg-white w-full">
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-          <div className="">
+          
             <div className="flex items-center justify-between h-20 px-4 sm:px-0">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
-                  <Logo />
+                  <Logo size="large" />
                 </div>
               </div>
               <div className="hidden md:block">
@@ -61,7 +61,7 @@ const Navbar = () => {
                   </Link>
                   <div className="group ml-4 relative inline-block text-left">
                     <Avatar
-                      alt="avatar"
+                      alt="profile"
                       url="https://img.icons8.com/external-dreamstale-lineal-dreamstale/344/external-avatar-avatars-dreamstale-lineal-dreamstale.png"
                       size="medium"
                       classes="shadow-inner rounded-full bg-gray-400 p-1"
@@ -140,7 +140,7 @@ const Navbar = () => {
               </div>
             </div>
           </div>
-        </div>
+        
         <div id="mob-nav" className="hidden border-b border-gray-700 md:hidden">
           <div className="px-2 py-3 sm:px-3">
             <Link to="/">

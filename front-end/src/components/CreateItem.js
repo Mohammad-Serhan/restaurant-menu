@@ -1,91 +1,41 @@
-import React, { useState, useEffect, useRef } from "react";
-// import Button from "./Button";
+import React, { useState, useRef } from "react";
+import { useForm } from "react-hook-form";
+
 
 const CreateItem = ({ addItems }) => {
-  // const user = {}
+
   const fileInputRef = useRef(null);
   const [image, setImage] = useState(null);
-  const [preview, setPreview] = useState(null);
 
-  const initialValues = {
-    title: "",
-    category: "",
-    price: 0,
-    img: "",
-    ingrediants: [""],
-  };
-
-  const [itemDetail, setItemDetails] = useState(initialValues);
-  const [missingFields, setmissingFields] = useState(null);
-
-  // const checkFormInput = () => {
-  //   if (
-  //     itemDetail.title === "" ||
-  //     itemDetail.category === "" ||
-  //     itemDetail.price === "" ||
-  //     itemDetail.img === "" ||
-  //     itemDetail.ingrediants === ""
-  //   ) {
-  //     console.log(itemDetail);
-  //     setmissingFields({
-  //       title: "there is missing fields"
-  //     });
-  //   } else {
-  //     setmissingFields(null);
-  //     return true;
-  //   }
-  // };
+    const {
+      register,
+      formState: { errors },
+      handleSubmit,
+    } = useForm();
 
 
-  const handle = (e) => {
-    const newItem = { ...itemDetail };
-    // console.log(e.target.id === "category");
-    if (e.target.id === "ingrediants") {
-      newItem[e.target.id] = e.target.value.split(/[, ]+/);
-    } else if (e.target.id === "price") {
-      newItem[e.target.id] = parseInt(e.target.value);
-    } else {
-      newItem[e.target.id] = e.target.value;
-    }
-    // console.log(newItem);
-    setItemDetails(newItem);
-  };
 
-  async function handleSubmit(event) {
-    event.preventDefault();
-    // console.log(event);
-    try {
-      // if (checkFormInput()) {
-      addItems(itemDetail);
-      // }
-    } catch (error) {
-      setmissingFields({
-        price: "Something happened  " + error,
-      });
-    }
+   const onSubmit = (event) => {
+    event.img = image;
+    addItems(event);
   }
 
-  useEffect(() => {
-    if (image) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreview(reader.result);
-        // console.log(preview)
-        // if (preview) user.profilePictureUrl = preview;
-      };
-      reader.readAsDataURL(image);
-    } else {
-      setPreview(null);
-    }
-  }, [image]);
 
 
+  const onImageChange = (e) => {
+    const [file] = e.target.files;
+    setImage(URL.createObjectURL(file));
+    //  console.log(URL.createObjectURL(file));
+  };
+
+
+  
 
 
   return (
-    <div className="border border-gray-200 p-6 rounded-lg md:w-1/2 mx-auto">
+    <div className="border border-gray-200 p-2 md:p-6 rounded-lg  mx-auto">
       <form
-        onSubmit={handleSubmit}
+        onSubmit={handleSubmit(onSubmit)}
         className="h-full flex flex-wrap  justify-between"
       >
         <div className="flex-grow grid  content-around mx-auto">
@@ -94,11 +44,11 @@ const CreateItem = ({ addItems }) => {
               image
             </label>
 
-            {preview ? (
+            {image ? (
               <img
                 className="h-52 object-cover object-center flex-shrink-0 rounded-lg "
-                alt="dish"
-                src={preview}
+                alt="snack"
+                src={image}
                 role="presentation"
                 onClick={() => {
                   if (fileInputRef.current) {
@@ -107,10 +57,10 @@ const CreateItem = ({ addItems }) => {
                 }}
               />
             ) : (
-              <>
+              <div className="flex flex-wrap justify-end">
                 <button
                   type="button"
-                  className="p-1 border hover:curser-pointer m-auto "
+                  className="p-1 border hover:curser-pointer mx-5 mb-2 "
                   onClick={(event) => {
                     event.preventDefault();
                     if (fileInputRef.current) {
@@ -120,19 +70,13 @@ const CreateItem = ({ addItems }) => {
                 >
                   upload
                 </button>
-                <input
-                  type="text"
-                  id="img"
-                  name="img"
-                  onChange={(e) => handle(e)}
-                  className=" bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                />
-              </>
+              </div>
             )}
-            <input
+            {/* <input
               type="file"
               placeholder="profile picture"
               id="img"
+              name="img"
               className="hidden"
               ref={fileInputRef}
               accept="image/*"
@@ -140,33 +84,49 @@ const CreateItem = ({ addItems }) => {
                 let file;
                 if (event.target.files) {
                   [file] = event.target.files;
-                  handle(event);
+                  // handle(event);
+                  console.log(event.target.files[0].name);
                 }
                 if (file && file.type.substr(0, 5) === "image") setImage(file);
                 else setImage(null);
               }}
+            /> */}
+            <input
+              type="file"
+              placeholder="profile picture"
+              id="img"
+              name="img"
+              className="hidden"
+              ref={fileInputRef}
+              accept="image/*"
+              onChange={onImageChange}
             />
           </div>
-          <small className=" text-red-500">
-            {missingFields && missingFields.img ? `${missingFields.img}` : ""}
-          </small>
+          {errors.img?.type === "required" && (
+            <small className=" text-red-500"> {errors.img.message}</small>
+          )}
+
           <div className="mt-2 relative flex justify-between items-center">
             <label htmlFor="title" className="leading-7 text-sm text-gray-600">
               title
             </label>
+
             <input
               type="text"
               id="title"
-              name="title"
-              onChange={(e) => handle(e)}
+              {...register("title", {
+                required: {
+                  value: true,
+                  message: "title is required",
+                },
+              })}
               className=" bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
             />
           </div>
-          <small className=" text-red-500">
-            {missingFields && missingFields.title
-              ? `${missingFields.title}`
-              : ""}
-          </small>
+          {errors.title?.type === "required" && (
+            <small className=" text-red-500">{errors.title.message}</small>
+          )}
+
           <div className="my-4 relative flex justify-between items-center">
             <label
               htmlFor="ingrediants"
@@ -174,19 +134,25 @@ const CreateItem = ({ addItems }) => {
             >
               ingrediants
             </label>
+
             <input
               type="text"
               id="ingrediants"
-              name="ingrediants"
-              onChange={(e) => handle(e)}
+              {...register("ingrediants", {
+                required: {
+                  value: true,
+                  message: "ingrediants is required",
+                },
+              })}
               className=" bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
             />
           </div>
-          <small className=" text-red-500">
-            {missingFields && missingFields.ingrediants
-              ? `${missingFields.ingrediants}`
-              : ""}
-          </small>
+          {errors.ingrediants?.type === "required" && (
+            <small className=" text-red-500">
+              {errors.ingrediants.message}
+            </small>
+          )}
+
           <div className="my-2 relative flex justify-between items-center">
             <label
               htmlFor="category"
@@ -194,40 +160,49 @@ const CreateItem = ({ addItems }) => {
             >
               category
             </label>
+
             <input
               type="text"
               id="category"
-              name="category"
-              onChange={(e) => handle(e)}
+              {...register("category", {
+                required: {
+                  value: true,
+                  message: "category is required",
+                },
+              })}
               className=" bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
             />
           </div>
-          <small className=" text-red-500">
-            {missingFields && missingFields.category
-              ? `${missingFields.category}`
-              : ""}
-          </small>
+          {errors.category?.type === "required" && (
+            <small className=" text-red-500"> {errors.category.message} </small>
+          )}
+
           <div className="mb-2 relative flex justify-between items-center">
             <label htmlFor="price" className="leading-7 text-sm text-gray-600">
               price
             </label>
+
             <input
               type="number"
               id="price"
-              name="price"
-              onChange={(e) => handle(e)}
+              {...register("price", {
+                required: {
+                  value: true,
+                  message: "price is required",
+                },
+                valueAsNumber: true,
+              })}
               className=" bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
             />
           </div>
-          <small className=" text-red-500">
-            {missingFields && missingFields.price
-              ? `${missingFields.price}`
-              : ""}
-          </small>
+          {errors.price?.type === "required" && (
+            <small className=" text-red-500">{errors.price.message}</small>
+          )}
+
           <div className="mx-auto">
             <button
               className="inline-flex items-center bg-indigo-500 text-white rounded m-2 px-4 py-2 hover:bg-indigo-400 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-indigo-700"
-              onClick={handleSubmit}
+              type="submit"
             >
               {" "}
               Add Item

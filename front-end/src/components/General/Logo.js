@@ -1,23 +1,30 @@
 import React from 'react'
 
-function Logo() {
+const Logo = ({ size = "small" }) => {
+  let typeMapping = {
+    full: "w-full h-full",
+    large: "w-40 ",
+    medium: "w-20 ",
+    small: "w-6 ",
+  };
+
+  let addClasses = Object.keys(typeMapping).includes(size)
+    ? typeMapping[size]
+    : "";
+
   return (
     <div className="flex items-center gap-x-2">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        stroke="currentColor"
-        className="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full"
-        viewBox="0 0 24 24"
-      >
-        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-      </svg>
-
-      <p className="text-xl">
-        <b>Logo</b> 
+      <p className="">
+        <img
+          className={ 
+          addClasses + " object-cover object-center flex-shrink-0 rounded-lg "
+          }
+          alt="logo"
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAIduF6Fy88pnPTtGI2TAMtTNGVn0wTf0R7w&usqp=CAU"
+        />
       </p>
     </div>
   );
-}
+};
 
 export default Logo

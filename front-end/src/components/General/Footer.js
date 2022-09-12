@@ -1,10 +1,10 @@
 import React from 'react'
-
+import Logo from './Logo';
 
 function footer() {
   return (
     <div className="sm:px-6 lg:px-8 py-2 max-w-7xl mx-auto flex mt-3 border-t border-gray-200 text-center justify-between">
-      Logo
+      <Logo size="medium" />
       <span className="inline-flex items-center">
         <span className="text-gray-500">
           <svg

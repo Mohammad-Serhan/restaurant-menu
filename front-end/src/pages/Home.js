@@ -2,7 +2,7 @@ import React, {  useState } from "react";
 import Menu from "../components/Menu";
 import Categories from "../components/Categories";
 import Button from "../components/General/Button";
-import CreateItem from "../components/General/CreateItem";
+import CreateItem from "../components/CreateItem";
 import fakeItems from "../db";
 
 const allCategories = [
@@ -27,7 +27,7 @@ const Home = () => {
 
 
   const addItems = (item) => {
-    item.id = fakeItems.length+1;
+    item.id = fakeItems[fakeItems.length-1].id+1;
     fakeItems.push(item);
     setMenuItems(fakeItems);
     console.log(fakeItems);
@@ -48,6 +48,7 @@ const Home = () => {
 
 
   const deleteItem = (id) => {
+    fakeItems.splice(id-1,1)
     setMenuItems((currentItems) =>
       currentItems.filter((item) => {
         // 👇️ remove object that has id equal to id
@@ -73,7 +74,7 @@ const Home = () => {
     <main className="mx-auto flex flex-col my-6">
       
       <div className="text-center">
-        <h2 className="text-3xl inline-block mr-5 ">our menu</h2>
+        <h2 className="text-3xl inline-block mr-5 ">Menu</h2>
         <div className="flex justify-center">
           {toggleShowItem ? (
             <div onClick={toggleShowAddButton}>
@@ -85,7 +86,7 @@ const Home = () => {
             </div>
           )}
         </div>
-        <div className=" ">
+        <div className="mx-auto md:w-1/2">
           {toggleShowItem ? <CreateItem addItems={addItems} /> : ""}
         </div>
       </div>

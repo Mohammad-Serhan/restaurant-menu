@@ -1,11 +1,9 @@
-import React, { useState } from "react";
+import React  from "react";
+import { Link } from "react-router-dom";
 import Avatar from "./General/Avatar";
 
 
-function Menu({ items, deleteItem, editItem }) {
-
-
-  const [allowEdit, setAllowEdit] = useState(false);
+function Menu({ items, deleteItem }) {
 
   if (items.length === 0) {
     return (
@@ -33,25 +31,14 @@ function Menu({ items, deleteItem, editItem }) {
 
               <div className="flex-grow grid content-around mx-3">
                 <div className=" flex justify-between">
-                  {allowEdit ? (
-                    <input
-                      className="  text-gray-900 title-font font-medium   "
-                      value={item.title}
-                      readOnly
-                    />
-                  ) : (
-                    <p className="p-0 text-gray-900 title-font font-medium md:text-xl  ">
-                      {item.title}
-                    </p>
-                  )}
+                  <p className="p-0 text-gray-900 title-font font-medium md:text-xl  ">
+                    {item.title}
+                  </p>
+
                   <div>
+                    <Link to={`snacks/edit/${item.id}`}>
                     <button
-                      onClick={() => {
-                        // editItem(index);
-                        // setAllowEdit(true);
-                      }}
-                      id="open-editItem"
-                      data-modal-toggle="small-modal"
+                      // onClick={handleShown}
                       className=" block inline mx-2 bg-green-500 text-white rounded  hover:bg-indigo-400 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-indigo-700"
                     >
                       <svg
@@ -64,6 +51,7 @@ function Menu({ items, deleteItem, editItem }) {
                         <path d="M0 0h48v48h-48z" fill="none" />
                       </svg>
                     </button>
+                    </Link>
                     <button
                       onClick={() => {
                         if (window.confirm("Are you sure you want to delete")) {
@@ -89,39 +77,19 @@ function Menu({ items, deleteItem, editItem }) {
                     </button>
                   </div>
                 </div>
-                {allowEdit ? (
-                  <input
-                    className="text-gray-600 flex items-center "
-                    value={item.ingrediants.join(", ")}
-                    readOnly
-                  />
-                ) : (
-                  <p className="text-gray-600 flex items-center ">
-                    {item.ingrediants.join(", ")}
-                  </p>
-                )}
-                {/* {item.ingrediants.join(", ")} */}
 
-                {allowEdit ? (
-                  <input
-                    className=" place-self-end border border-indigo-600 p-1 text-gray-500 w-12 text-center  hover:cursor-pointer hover:text-white hover:bg-indigo-600 "
-                    value={item.price}
-                    readOnly
-                  />
-                ) : (
-                  <p className=" place-self-end border border-indigo-600 p-1 text-gray-500 w-12 text-center  hover:cursor-pointer hover:text-white hover:bg-indigo-600 ">
-                    {item.price}
-                  </p>
-                )}
+                <p className="text-gray-600 flex items-center ">
+                  {item.ingrediants}
+                </p>
+
+                <p className=" place-self-end border border-indigo-600 p-1 text-gray-500 w-12 text-center  hover:cursor-pointer hover:text-white hover:bg-indigo-600 ">
+                  {item.price}
+                </p>
               </div>
             </div>
           </div>
         ))}
       </div>
-
-
-
-
     </div>
   );
 }

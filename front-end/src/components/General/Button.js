@@ -37,7 +37,7 @@ function primaryPlusButton(text) {
 
 function primaryCloseButton(text) {
   return (
-    <button className="inline-flex items-center bg-indigo-500 text-white rounded m-2 px-4 py-2 hover:bg-indigo-400 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-indigo-700">
+    <button className="inline-flex items-center bg-red-500 text-white rounded m-2 px-4 py-2 hover:bg-red-400 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-red-700">
       <svg
         className="h-6 w-6"
         stroke="currentColor"

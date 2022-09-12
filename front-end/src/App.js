@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import LogIn from "./components/General/LogIn";
 import NotFound from "./components/NotFound";
 import Footer from "./components/General/Footer";
+import EditMenuItem from "./pages/EditMenuItem";
 
 function App() {
   // const element = <h1>Hello, world!</h1>; // JSX is a syntax extension to JavaScript
@@ -17,9 +18,9 @@ function App() {
       <Navbar />
       <Routes>
         <Route exact path="/" element={<Home />}></Route>
+        <Route exact path="/snacks/edit/:id" element={<EditMenuItem />}></Route>
         <Route exact path="/admin/login" element={<LogIn />}></Route>
-        {/*  when React starts looking for urls. it looks over all the over routes. but if it does not find it will render NotFound page */}
-        <Route path="/notfound" element={<NotFound />} />
+        {/*  when React starts looking for urls. it looks over all the over routes. but if it does not find it, will render NotFound page */}
         <Route path="/*" element={<NotFound />} />
       </Routes>
       <Footer />
