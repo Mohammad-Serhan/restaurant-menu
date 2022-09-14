@@ -12,8 +12,7 @@ const EditMenuItem = (  ) => {
   const navigate = useNavigate();
 
 
-  const fileInputRef = useRef(null);
-  const [image, setImage] = useState(null);
+  const imageInputRef = useRef(null);
   const [preview, setPreview] = useState(null);
   const [itemDetails, setItemDetails] = useState([]);
 
@@ -26,7 +25,7 @@ const EditMenuItem = (  ) => {
   
 
   const onSubmit = (event) => {
-
+    event.preventDefault();
     event.id = parseInt(id);
     event.img = preview;
     let selectedSnack = fakeItems.findIndex((item) => item.id == id);
@@ -38,6 +37,13 @@ const EditMenuItem = (  ) => {
   };
 
 
+        const editItem = (item) => {
+          // fakeItems.push(item);
+          // setMenuItems(fakeItems);
+          console.log(fakeItems);
+        };
+
+
   useEffect(() => {
     let selectedSnack = fakeItems.find((item) => item.id == id);
 
@@ -45,19 +51,24 @@ const EditMenuItem = (  ) => {
   });
 
 
-  useEffect(() => {
-    if (image) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreview(reader.result);
-        // console.log(reader.result);
-      };
-      reader.readAsDataURL(image);
-    } else {
-      setPreview(null);
-    }
-  }, [image]);
+  // useEffect(() => {
+  //   if (image) {
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => {
+  //       setPreview(reader.result);
+  //       // console.log(reader.result);
+  //     };
+  //     reader.readAsDataURL(image);
+  //   } else {
+  //     setPreview(null);
+  //   }
+  // }, [image]);
 
+
+  const onImageChange = (event) => {
+        const uploaded = event.target.files[0];
+        setPreview(URL.createObjectURL(uploaded));
+  }
 
 
 
@@ -94,23 +105,14 @@ const EditMenuItem = (  ) => {
                   alt="snack"
                   src={preview || itemDetails.img}
                   role="presentation"
-                  onClick={() => {
-                    if (fileInputRef.current) {
-                      fileInputRef.current.click();
-                    }
-                  }}
+                  onClick={() => imageInputRef.current.click()}
                 />
               ) : (
                 <div className="flex flex-wrap justify-end">
                   <button
                     type="button"
                     className="p-1 border hover:curser-pointer mx-5 mb-2 "
-                    onClick={(event) => {
-                      event.preventDefault();
-                      if (fileInputRef.current) {
-                        fileInputRef.current.click();
-                      }
-                    }}
+                    onClick={() => imageInputRef.current.click()}
                   >
                     upload
                   </button>
@@ -122,19 +124,9 @@ const EditMenuItem = (  ) => {
                 id="img"
                 name="img"
                 className="hidden"
-                ref={fileInputRef}
+                ref={imageInputRef}
                 accept="image/*"
-                onChange={(event) => {
-                  let file;
-                  if (event.target.files) {
-                    [file] = event.target.files;
-                    // handle(event);
-                    // console.log(event.target.files[0].name);
-                  }
-                  if (file && file.type.substr(0, 5) === "image")
-                    setImage(file);
-                  else setImage(null);
-                }}
+                onChange={onImageChange}
               />
             </div>
             {errors.img?.type === "required" && (
@@ -253,7 +245,6 @@ const EditMenuItem = (  ) => {
               <button
                 className="inline-flex items-center bg-indigo-500 text-white rounded m-2 px-4 py-2 hover:bg-indigo-400 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-indigo-700"
                 type="submit"
-                
               >
                 {" "}
                 Edit Item

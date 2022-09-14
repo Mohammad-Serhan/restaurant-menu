@@ -2,9 +2,9 @@ import React, { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 
 
-const CreateItem = ({ addItems }) => {
+const CreateItem = () => {
 
-  const fileInputRef = useRef(null);
+  const imageInputRef = useRef(null);
   const [image, setImage] = useState(null);
 
     const {
@@ -16,16 +16,25 @@ const CreateItem = ({ addItems }) => {
 
 
    const onSubmit = (event) => {
+    event.preventDefault();
     event.img = image;
     addItems(event);
   }
 
+    const addItems = (item) => {
+      item.id = fakeItems[fakeItems.length - 1].id + 1;
+      fakeItems.push(item);
+      // additems("/addItem", items)
+      setMenuItems(fakeItems);
+      console.log(fakeItems);
+    };
+
 
 
   const onImageChange = (e) => {
-    const [file] = e.target.files;
-    setImage(URL.createObjectURL(file));
-    //  console.log(URL.createObjectURL(file));
+    const uploaded = e.target.files[0];
+    setImage(URL.createObjectURL(uploaded));
+    //  console.log(URL.createObjectURL(uploaded));
   };
 
 
@@ -50,54 +59,27 @@ const CreateItem = ({ addItems }) => {
                 alt="snack"
                 src={image}
                 role="presentation"
-                onClick={() => {
-                  if (fileInputRef.current) {
-                    fileInputRef.current.click();
-                  }
-                }}
+                onClick={() => imageInputRef.current.click()}
               />
             ) : (
               <div className="flex flex-wrap justify-end">
                 <button
                   type="button"
                   className="p-1 border hover:curser-pointer mx-5 mb-2 "
-                  onClick={(event) => {
-                    event.preventDefault();
-                    if (fileInputRef.current) {
-                      fileInputRef.current.click();
-                    }
-                  }}
+                  onClick={() => imageInputRef.current.click()}
                 >
                   upload
                 </button>
               </div>
             )}
-            {/* <input
-              type="file"
-              placeholder="profile picture"
-              id="img"
-              name="img"
-              className="hidden"
-              ref={fileInputRef}
-              accept="image/*"
-              onChange={(event) => {
-                let file;
-                if (event.target.files) {
-                  [file] = event.target.files;
-                  // handle(event);
-                  console.log(event.target.files[0].name);
-                }
-                if (file && file.type.substr(0, 5) === "image") setImage(file);
-                else setImage(null);
-              }}
-            /> */}
+
             <input
               type="file"
               placeholder="profile picture"
               id="img"
               name="img"
               className="hidden"
-              ref={fileInputRef}
+              ref={imageInputRef}
               accept="image/*"
               onChange={onImageChange}
             />

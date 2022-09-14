@@ -18,7 +18,7 @@ const notFound = () => {
               Sorry
             </h2>
             <p className="leading-relaxed">We couldn't find that page</p>
-            <Link to="/">
+            <Link to="/admin/login">
               <span className="mt-3 text-indigo-500 inline-flex items-center">
                 you can go to home page
                 <svg
