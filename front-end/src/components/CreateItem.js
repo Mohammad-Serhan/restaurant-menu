@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
+import { addItem } from "../actions/menuItems.action";
 
 
 const CreateItem = () => {
@@ -21,12 +22,9 @@ const CreateItem = () => {
     addItems(event);
   }
 
-    const addItems = (item) => {
-      item.id = fakeItems[fakeItems.length - 1].id + 1;
-      fakeItems.push(item);
-      // additems("/addItem", items)
-      setMenuItems(fakeItems);
-      console.log(fakeItems);
+    const addItems = async (item) => {
+      await addItem(`/addItem`, item)
+      console.log(item);
     };
 
 

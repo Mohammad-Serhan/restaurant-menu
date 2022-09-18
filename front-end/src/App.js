@@ -4,11 +4,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/General/Navbar";
 // if used several times (Button, Panel, Avatar),
 // or is complex enough on its own (App, FeedStory, Comment) ==> seperate components
-import Home from "./pages/Home";
+import Home from "./pages/home";
 import LogIn from "./components/General/LogIn";
 import NotFound from "./components/NotFound";
 import Footer from "./components/General/Footer";
-import EditMenuItem from "./pages/EditMenuItem";
+import EditMenuItem from "./pages/editMenuItem";
 import ProtectedRoute from "./protected.route";
 
 function App() {

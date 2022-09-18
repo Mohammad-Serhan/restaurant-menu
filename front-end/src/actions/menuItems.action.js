@@ -1,10 +1,11 @@
 import axios from "axios";
 
-const apiUrl = process.env.REACT_APP_API_URL;//"http://localhost:8080/admin/"
+const apiUrl = process.env.API_SERVER;//
 
 export const logInAdmin = async(URL, adminDetails) => {
         try {
-          const response = await axios( apiUrl + URL, {
+        console.log(`${apiUrl}/${URL}`);
+          const response = await axios(`${apiUrl}/${URL}`, {
             method: "post",
             data: adminDetails,
             withCredentials: true,
@@ -12,9 +13,40 @@ export const logInAdmin = async(URL, adminDetails) => {
 
           return response;
         } catch (error) {
-          console.log(error);
+            console.log(error);
+            return error.message
         }
 }
+
+export const getMenu = async (URL) => {
+  try {
+      const response = await axios(apiUrl + URL, {
+        method: "get",
+        withCredentials: true,
+      });
+
+      return response;
+  } catch (error) {
+      console.log(error);
+      return error.message;
+
+  }
+};
+
+
+export const getItem = async (URL) => {
+  try {
+    const response = await axios(apiUrl + URL, {
+      method: "get",
+      withCredentials: true,
+    });
+
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 
 
 export const getAllCategories = async (URL) => {
@@ -47,9 +79,9 @@ export const addItem = async (URL, data) => {
 };
 
 
-export const editItem = async (URL, id, data) => {
+export const editItem = async (URL, data) => {
   try {
-    const response = await axios(apiUrl + URL + id, {
+    const response = await axios(apiUrl + URL, {
       method: "put",
       data: data,
       withCredentials: true,

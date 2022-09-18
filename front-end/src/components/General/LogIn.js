@@ -1,9 +1,13 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { logInAdmin } from "../../actions/menuItems.action"
+import Auth from "../../auth";
 
 
 function LogIn() {
+  const navigate = useNavigate();
+
     const {
       register,
       formState: { errors },
@@ -11,17 +15,18 @@ function LogIn() {
     } = useForm();
 
     const onSubmit = async (event) => {
-        event.preventDefault();
-        console.log(event);
+        
+        // console.log(event);
 
         let response = await logInAdmin("login", event);
+        console.log(response);
         if (response.data.authenticated) {
             Auth.storeAuthData(response.data.user, response.data.accessToken);
             // refresh()
-            navigate(`/admin/${response.data.accessToken}`);        
+            navigate(`/admin/menu`);        
         } else {
             Auth.removeAuthData();
-            console.log("log in failed");
+            console.log(response);
         } 
     }
 
@@ -33,8 +38,7 @@ function LogIn() {
             Log In
           </h1>
           <p className="lg:w-2/3 mx-auto leading-relaxed text-base">
-            Whatever cardigan tote bag tumblr hexagon brooklyn asymmetrical
-            gentrify.
+            
           </p>
         </div>
         <div className="lg:w-1/2 md:w-2/3 mx-auto">
@@ -72,12 +76,13 @@ function LogIn() {
                   type="password"
                   id="password"
                   name="password"
-                  {...register("password"), {
+                  {...register("password", {
                     required: {
                       value : true,
                       message: "password is required"
                     }
-                  }}
+                  })
+                  }
                   className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                 />
               </div>

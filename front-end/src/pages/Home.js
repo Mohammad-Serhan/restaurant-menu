@@ -3,26 +3,26 @@ import Menu from "../components/Menu";
 import Categories from "../components/Categories";
 import Button from "../components/General/Button";
 import CreateItem from "../components/CreateItem";
-import fakeItems from "../db";
-import { getAllCategories } from "../actions/menuItems.action" 
+// import fakeItems from "../db";
+import { getAllCategories, getMenu } from "../actions/menuItems.action"; 
 
-const allCategories = [
-  "all",
-  ...new Set(fakeItems.map((item) => item.category)),
-];
+// const allCategories = [
+//   "all",
+//   ...new Set(fakeItems.map((item) => item.category)),
+// ];
 // console.log(allCategories);
 
 const Home = () => {
-  const [menuItems, setMenuItems] = useState(fakeItems);
+  const [menuItems, setMenuItems] = useState(null);
   const [categories, setAllCategories] = useState(null);
   const [toggleShowItem, setToggleShowItem] = useState(false);
 
   const filterItems = (category) => {
     if (category === "all") {
-      setMenuItems(fakeItems);
+      setMenuItems(categories);
       return;
     }
-    const newItems = fakeItems.filter((item) => item.category === category);
+    const newItems = categories.filter((item) => item.category === category);
     setMenuItems(newItems);
   };
 
@@ -35,20 +35,18 @@ const Home = () => {
 
 
 
-    useEffect(() => {
-        setAllCategories(getAllCategories("/categories"));
-    });
+    useEffect( () => {
+      const fetchData = async () => {
+        const menu = await getMenu("/getMenuItems");
+        setMenuItems(menu);
 
-  // addItems({
-  //   id: fakeItems.length+1,
-  //   title: "zayton",
-  //   category: "launch",
-  //   price: 15,
-  //   img: "https://media.istockphoto.com/photos/homemade-meat-gyro-with-french-fries-picture-id486037149?b=1&k=20&m=486037149&s=612x612&w=0&h=xa9Z98kjA0czwLPraQ6krJIG7aGcVdt0S9LBDAbv-Q8=",
-  //   ingrediants: [ "parsley", ""],
-  //   calories: "",
-  //   reference: "",
-  // });
+
+        const categories = await getAllCategories("/getCategories");
+        setAllCategories(categories);
+      }
+        fetchData();
+    }, []);
+
 
 
     if(categories === null) {
