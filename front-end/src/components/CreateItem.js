@@ -1,43 +1,28 @@
 import React, { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
-import { addItem } from "../actions/menuItems.action";
 
 
-const CreateItem = () => {
-
+const CreateItem = ({ addMenuItem }) => {
   const imageInputRef = useRef(null);
   const [image, setImage] = useState(null);
 
-    const {
-      register,
-      formState: { errors },
-      handleSubmit,
-    } = useForm();
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
 
-
-
-   const onSubmit = (event) => {
-    event.preventDefault();
+  const onSubmit = (event) => {
+    
     event.img = image;
-    addItems(event);
-  }
-
-    const addItems = async (item) => {
-      await addItem(`/addItem`, item)
-      console.log(item);
-    };
-
-
+    addMenuItem(event);
+  };
 
   const onImageChange = (e) => {
     const uploaded = e.target.files[0];
     setImage(URL.createObjectURL(uploaded));
     //  console.log(URL.createObjectURL(uploaded));
   };
-
-
-  
-
 
   return (
     <div className="border border-gray-200 p-2 md:p-6 rounded-lg  mx-auto">

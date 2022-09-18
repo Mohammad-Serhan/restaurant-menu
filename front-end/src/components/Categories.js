@@ -1,7 +1,7 @@
 import React from "react";
 
 const Categories = ({ categories, filterItems }) => {
-
+// console.log(categories);
   return (
     <div className="container mx-auto text-center">
       {categories.map((category, index) => 

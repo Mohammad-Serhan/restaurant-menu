@@ -1,10 +1,13 @@
 import axios from "axios";
 
-const apiUrl = process.env.API_SERVER;//
+const apiUrl =
+  process.env.NODE_ENV === "development"
+    ? process.env.REACT_APP_MENU_BASE_URL
+    : process.env.REACT_APP_MENU_API_URL;
 
 export const logInAdmin = async(URL, adminDetails) => {
         try {
-        console.log(`${apiUrl}/${URL}`);
+        // console.log(`${apiUrl}/${URL}`);
           const response = await axios(`${apiUrl}/${URL}`, {
             method: "post",
             data: adminDetails,
@@ -13,8 +16,8 @@ export const logInAdmin = async(URL, adminDetails) => {
 
           return response;
         } catch (error) {
-            console.log(error);
-            return error.message
+            // console.log(error);
+            return error
         }
 }
 

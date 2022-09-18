@@ -3,8 +3,7 @@ import { useForm } from "react-hook-form";
 import { useParams, useNavigate } from "react-router-dom";
 // import fakeItems from '../db';
 import Button from "../components/General/Button";
-import { getItem } from "../actions/menuItems.action";
-import { logInAdmin } from "../actions/menuItems.action";
+import { editItem, getItem } from "../actions/menuItems.action";
 
 
   // In most web pages, when a dialog opens, the background becomes inactive. This means that the content behind the modal dialog cannot be accessed until the user interacts with it. This is called an overlay effect.
@@ -28,17 +27,24 @@ const EditMenuItem = (  ) => {
   
 
   const onSubmit = async (event) => {
-    event.preventDefault();
 
     event.id = parseInt(id);
     event.img = preview;
     
-    await logInAdmin(`/editItem/${id}`, event);
-    
-    
+     editMenuItem(event);
     setItemDetails('');
     navigate(-1);
   };
+
+
+  const editMenuItem = async (item) => {
+  try {
+      await editItem(`/editItem/${id}`, item);
+
+  } catch (error) {
+    console.log(error);
+  }
+  }
 
 
         
@@ -48,7 +54,7 @@ const EditMenuItem = (  ) => {
 
     const fetchData = async () => {
       let selectedSnackItem = await getItem(`/getMenuItems/${id}`)
-      setItemDetails(selectedSnackItem);
+      setItemDetails(selectedSnackItem.data.item);
     };
     fetchData();
   }, [id]);

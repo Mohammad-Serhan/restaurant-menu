@@ -2,11 +2,9 @@ import React  from "react";
 import { Link } from "react-router-dom";
 import Avatar from "./General/Avatar";
 
-
-function Menu({ items }) {
-  const deleteItem = async (id) => {
-    await deleteItem("/deleteItem", id);
-  };
+function Menu({ items, deleteMenuItem }) {
+  // console.log(items);
+  
 
   if (items.length === 0) {
     return (
@@ -26,7 +24,7 @@ function Menu({ items }) {
       <div className="flex flex-wrap -m-2">
         {items.map((item, index) => (
           <div
-            key={item.id}
+            key={item._id}
             className=" my-2 md:w-1/2 lg:w-2/5 w-full lg:mx-auto"
           >
             <div className="h-full  flex justify-between  border-gray-200 border  rounded-lg">
@@ -39,7 +37,7 @@ function Menu({ items }) {
                   </p>
 
                   <div>
-                    <Link to={`snacks/edit/${item.id}`}>
+                    <Link to={`/admin/menu/edit/${item._id}`}>
                       <button
                         // onClick={handleShown}
                         className=" block inline mx-2 bg-green-500 text-white rounded  hover:bg-indigo-400 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-indigo-700"
@@ -58,7 +56,7 @@ function Menu({ items }) {
                     <button
                       onClick={() => {
                         if (window.confirm("Are you sure you want to delete")) {
-                          deleteItem(item.id);
+                          deleteMenuItem(item._id);
                         }
                       }}
                       className=" bg-red-500 text-white rounded  hover:bg-indigo-400 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-indigo-700"

@@ -11,23 +11,36 @@ function LogIn() {
     const {
       register,
       formState: { errors },
+      setError,
       handleSubmit,
     } = useForm();
 
     const onSubmit = async (event) => {
         
         // console.log(event);
-
+      try {
         let response = await logInAdmin("login", event);
         console.log(response);
         if (response.data.authenticated) {
-            Auth.storeAuthData(response.data.user, response.data.accessToken);
-            // refresh()
-            navigate(`/admin/menu`);        
+          Auth.storeAuthData(response.data.admin, response.data.accessToken);
+          // console.log(response);
+          navigate(`/admin/menu`);
         } else {
-            Auth.removeAuthData();
-            console.log(response);
-        } 
+          setError("email", {
+            types: {
+              required: "set error is required",
+            },
+          });
+          Auth.removeAuthData();
+          console.log(response);
+        }
+      } catch (error) {
+         setError("password", {
+            types: {
+              required: error,
+            },
+          });
+      }
     }
 
 
