@@ -15,11 +15,11 @@ app.use(bodyParser.json());         // can not read the request message unless t
 // If you want to allow credentials then your Access-Control-Allow-Origin must not use *.
 // You will have to specify the exact protocol + domain + port.
 app.use(
-    cors({
-        origin: config.database.local,
-        credentials: true,
-    })
-)
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 
 
 // Route Middleware

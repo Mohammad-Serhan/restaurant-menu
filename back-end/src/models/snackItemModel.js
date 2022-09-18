@@ -11,7 +11,8 @@ const itemSchema = new Schema({
     title: {
         type: String,
         require: true,
-        min: 4
+        min: 4,
+        unique: true
     },
     category: {
         type: String,

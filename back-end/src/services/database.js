@@ -15,7 +15,7 @@ conn.on("connected", function () {
 });
 
 conn.on("disconnected", function () {
-    console.log("database is disconnected !!");
+    console.log("Error in connection to db ⚠️ :  !!");
 })
 
 conn.on("error", console.error.bind(console, "connection error: "));
