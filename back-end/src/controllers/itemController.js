@@ -75,6 +75,7 @@ class itemController {
       }
 
       return res.status(200).send({
+        created: true,
         newItem,
       });
     } catch (error) {
@@ -113,10 +114,11 @@ class itemController {
   async deleteItem(req, res) {
     try {
     
-        const removedItem = await Item.remove({ _id: req.params.item_id });
+        const removedItem = await Item.deleteOne({ _id: req.params.item_id });
 
       return res.status(200).send({
-        removedItem
+        deleted: true,
+        message: "removed Successfully"
       });
     } catch (error) {
       return res.status(400).send({

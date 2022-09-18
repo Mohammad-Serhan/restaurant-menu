@@ -16,7 +16,7 @@ app.use(bodyParser.json());         // can not read the request message unless t
 // You will have to specify the exact protocol + domain + port.
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: process.env.CORS_ORIGIN,
     credentials: true,
   })
 );
