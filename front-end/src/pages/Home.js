@@ -3,6 +3,7 @@ import Menu from "../components/Menu";
 import Categories from "../components/Categories";
 import Button from "../components/General/Button";
 import CreateItem from "../components/CreateItem";
+import Navbar from "../components/General/Navbar";
 // import fakeItems from "../db";
 import {
   getAllCategories,
@@ -74,7 +75,7 @@ const Home = () => {
 
   useEffect(() => {
     fetchData();
-  }, [ AllItems]);
+  }, [ ]);
 
 
 
@@ -91,6 +92,7 @@ const Home = () => {
   if (categories === null) {
     return (
       <div className="h-screen flex flex-col">
+      <Navbar />
         <div className="mt-12 min-h-3/4 flex-grow">
           <div className=" max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="bg-white shadow-xl overflow-hidden rounded-lg ">
@@ -103,8 +105,9 @@ const Home = () => {
   }
 
   return (
-    <main className="mx-auto flex flex-col my-6">
-      <div className="text-center">
+    <main className="mx-auto flex flex-col ">
+    <Navbar />
+      <div className="text-center my-6">
         <h2 className="text-3xl inline-block mr-5 ">Menu</h2>
         <div className="flex justify-center">
           {toggleShowItem ? (

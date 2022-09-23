@@ -270,11 +270,10 @@ const EditMenuItem = (  ) => {
     <div
       className=" fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full " 
         // showHideClassName
-      
     >
       {/* <!--modal content--> */}
       <div className="modal-main relative top-20 mx-auto md:w-3/5 p-1 sm:p-5  border shadow-lg rounded-md bg-white">
-        <div onClick={ () => navigate(-1)}>
+        <div className="text-center" onClick={ () => navigate(-1)}>
           <Button type="primaryClose" />
         </div>
         {itemForm}

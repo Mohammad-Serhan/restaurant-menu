@@ -20,8 +20,9 @@ const CreateItem = ({ addMenuItem }) => {
 
   const onImageChange = (e) => {
     const uploaded = e.target.files[0];
-    setImage(URL.createObjectURL(uploaded));
-    //  console.log(URL.createObjectURL(uploaded));
+    setImage(uploaded);
+    // setImage(URL.createObjectURL(uploaded));
+     console.log(uploaded, URL.createObjectURL(uploaded));
   };
 
   return (

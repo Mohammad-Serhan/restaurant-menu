@@ -1,6 +1,9 @@
 import React  from "react";
 import { Link } from "react-router-dom";
 import Avatar from "./General/Avatar";
+import Auth from "../auth";
+
+
 
 function Menu({ items, deleteMenuItem }) {
   // console.log(items);
@@ -25,7 +28,7 @@ function Menu({ items, deleteMenuItem }) {
         {items.map((item, index) => (
           <div
             key={item._id}
-            className=" my-2 md:w-1/2 lg:w-2/5 w-full lg:mx-auto"
+            className=" my-2 w-full lg:w-2/5  mx-auto"
           >
             <div className="h-full  flex justify-between  border-gray-200 border  rounded-lg">
               <Avatar size="large" url={item.img} alt={item.title} />
@@ -35,7 +38,7 @@ function Menu({ items, deleteMenuItem }) {
                   <p className="p-0 text-gray-900 title-font font-medium md:text-xl  ">
                     {item.title}
                   </p>
-
+                { Auth.isAuthenticated() ? 
                   <div>
                     <Link to={`/admin/menu/edit/${item._id}`}>
                       <button
@@ -77,6 +80,7 @@ function Menu({ items, deleteMenuItem }) {
                       </svg>
                     </button>
                   </div>
+                  : <></> }
                 </div>
 
                 <p className="text-gray-600 flex items-center ">

@@ -21,6 +21,28 @@ export const logInAdmin = async(URL, adminDetails) => {
         }
 }
 
+
+export const logOut = async(URL, token) => {
+        try {
+        // console.log(`${apiUrl}/${URL}`);
+          const response = await axios(
+            `${apiUrl}/${URL}`,
+
+            {
+              method: "get",
+              headers: {
+                Authorization: "Bearer " + token,
+              },
+            }
+          );
+
+          return response;
+        } catch (error) {
+            // console.log(error);
+            return error
+        }
+}
+
 export const getMenu = async (URL) => {
   try {
       const response = await axios(apiUrl + URL, {

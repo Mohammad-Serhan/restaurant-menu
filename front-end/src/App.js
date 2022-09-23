@@ -1,7 +1,7 @@
 // after react v17 , we do not need to use
 // import React from react;
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navbar from "./components/General/Navbar";
+// import Navbar from "./components/General/Navbar";
 // if used several times (Button, Panel, Avatar),
 // or is complex enough on its own (App, FeedStory, Comment) ==> seperate components
 import Home from "./pages/home";
@@ -14,12 +14,12 @@ import ProtectedRoute from "./protected.route";
 function App() {
   return (
     <BrowserRouter>
-      <Navbar />
+      {/* <Navbar /> */}
+
       <Routes>
+        <Route exact path="/" element={<Home />}></Route>
+
         <Route exact path="/admin/login" element={<LogIn />}></Route>
-        <Route element={<ProtectedRoute />}>
-          <Route exact path="/admin/menu" element={<Home />}></Route>
-        </Route>
         <Route element={<ProtectedRoute />}>
           <Route
             exact
