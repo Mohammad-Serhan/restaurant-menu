@@ -48,16 +48,23 @@ class adminController {
 
   async logOut(req, res) {
     try {
+      // const id = req.params.admin_id;
+      //  const existingAdmin = await Admin.findOne({ id }).exec();
+      //  if (!existingAdmin) {
+      //    return res.status(400).send({
+      //      message: "Admin does not exist !!",
+      //    });
+      //  }
 
-      const refreshToken =
-        req.headers.cookie && req.headers.cookie.split("=")[1];
-      console.log(refreshToken);
+      // const refreshToken =
+      //   req.headers.cookie && req.headers.cookie.split("=")[1];
+      // console.log(refreshToken);
 
       res
         .status(200)
-        .clearCookie("accessToken", {
-          path: "/",
-        })
+        // .clearCookie("accessToken", {
+        //   path: "/",
+        // })s
         .send({
           logOut: true,
           message: "Successfully logged out 😏 🍀",

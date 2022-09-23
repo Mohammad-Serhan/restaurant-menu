@@ -8,7 +8,7 @@ class AuthController {
       const authHeader = req.headers["authorization"];
       // console.log("header = " + authHeader);
       const token = authHeader && authHeader.split(" ")[1];
-    //   console.log("token = " + token)
+      // console.log("token = " + token)
       if (token === null) {
         return res.status(401).send({
           authenticated: false,
@@ -21,20 +21,20 @@ class AuthController {
         function (err, decoded) {
           // console.log(err)
           if (err) {
-             res.status(401).send({
+             return res.status(401).send({
               authenticated: false,
               message: err.message,
             });
           }
           // console.log(decoded)
-          return res.status(200).json({
-            authenticated: true,
-            email: decoded.user.email,
-            name: decoded.user.name ?? "Guest",
-          });
-          // req.user = decoded.user;
-          // console.log(decoded.user);
-          // next();
+          // return res.status(200).json({
+          //   authenticated: true,
+          //   email: decoded.admin.email,
+          //   name: decoded.admin.name ?? "Guest",
+          // });
+          req.admin = decoded.admin;
+          // console.log(decoded.admin);
+          next();
         }
       );
     } catch (error) {

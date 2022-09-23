@@ -9,9 +9,9 @@ const AuthController = require("../../controllers/auth.controller");
 
 // routes and api
 router.post("/login", AdminController.logInAdmin);
-router.post("/admin_id/logout", AdminController.logOut);
+router.get("/:admin_id/logout", AuthController.verifyToken, AdminController.logOut);
 router.post("/register", AdminController.registerUser);
-router.post("/auth/verify", AuthController.verifyToken);
+// router.post("/auth/verify", AuthController.verifyToken);
 
 
 router.get("/getMenuItems", ItemController.getAllMenuItems);
