@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 // import fakeItems from '../db';
 import Button from "../components/General/Button";
 import { editItem, getItem } from "../actions/menuItems.action";
-
+// import FileBase64 from 'react-file-base64';
 
   // In most web pages, when a dialog opens, the background becomes inactive. This means that the content behind the modal dialog cannot be accessed until the user interacts with it. This is called an overlay effect.
 
@@ -16,6 +16,7 @@ const EditMenuItem = (  ) => {
 
   const imageInputRef = useRef(null);
   const [preview, setPreview] = useState(null);
+  const [image, setImage] = useState(null);
   const [itemDetails, setItemDetails] = useState([]);
 
   const {
@@ -29,8 +30,16 @@ const EditMenuItem = (  ) => {
   const onSubmit = async (event) => {
 
     event.id = parseInt(id);
-    event.img = preview;
+
+    // let finalimage = {
+    //   data: image ,
+    //   contentType: "image/png" 
+    // }
+    // console.log(image);
+    event.img = image;
     
+    // console.log(event);
+    // console.log(preview);
      editMenuItem(event);
     setItemDetails('');
     navigate(-1);
@@ -48,13 +57,28 @@ const EditMenuItem = (  ) => {
 
 
         
+  // const arrayBufferToBase64 = (buffer) => {
+  //       var binary = '';
+  //       var bytes = [].slice.call(new Uint8Array(buffer));        
+  //       bytes.forEach((b) => binary += String.fromCharCode(b));        
+  //       return window.btoa(binary);
+  //   };
 
 
   useEffect(() => {
 
     const fetchData = async () => {
       let selectedSnackItem = await getItem(`/getMenuItems/${id}`)
-      setItemDetails(selectedSnackItem.data.item);
+      let item = selectedSnackItem.data.item;
+      console.log(item);
+      // var base64Flag = "data:image/png;base64,";
+      // var imageStr = btoa(
+      //   String.fromCharCode(...new Uint8Array(item.img.data))
+      // );
+
+      // item.img = base64Flag + imageStr;
+      console.log(item);
+      setItemDetails(item);
     };
     fetchData();
   }, [id]);
@@ -75,8 +99,16 @@ const EditMenuItem = (  ) => {
 
 
   const onImageChange = (event) => {
-        const uploaded = event.target.files[0];
-        setPreview(URL.createObjectURL(uploaded));
+    let file = event.target.files[0];
+    console.log(file);
+    setImage(file);
+    // if (event.target.files) {
+      // file = event.target.files[0];
+      // console.log(file);
+      // setImage(file);
+    // }
+    // if (file && file.type.substr(0, 5) === 'image') setImage(file);
+    // else setImage(null);   
   }
 
 
@@ -112,7 +144,7 @@ const EditMenuItem = (  ) => {
                 <img
                   className="h-52 object-cover object-center flex-shrink-0 rounded-lg "
                   alt="snack"
-                  src={preview || itemDetails.img}
+                  src={URL.createObjectURL(image) || itemDetails.img}
                   role="presentation"
                   onClick={() => imageInputRef.current.click()}
                 />
@@ -137,6 +169,11 @@ const EditMenuItem = (  ) => {
                 accept="image/*"
                 onChange={onImageChange}
               />
+              {/* <FileBase64
+                multiple={false}
+                ref={imageInputRef}
+                onDone={onImageChange}
+              /> */}
             </div>
             {errors.img?.type === "required" && (
               <small className=" text-red-500"> {errors.img.message}</small>

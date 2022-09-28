@@ -95,6 +95,7 @@ export const addItem = async (URL, data) => {
       method: "post",
       data: data,
       withCredentials: true,
+      headers: { "Content-Type": "multipart/form-data" },
     });
 
     return response;

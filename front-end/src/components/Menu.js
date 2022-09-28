@@ -22,6 +22,8 @@ function Menu({ items, deleteMenuItem }) {
     );
   }
 
+  console.log(typeof items[0].img);
+
   return (
     <div className="container px-5 py-12 mx-auto">
       <div className="flex flex-wrap -m-2">
@@ -31,7 +33,7 @@ function Menu({ items, deleteMenuItem }) {
             className=" my-2 w-full lg:w-2/5  mx-auto"
           >
             <div className="h-full  flex justify-between  border-gray-200 border  rounded-lg">
-              <Avatar size="large" url={item.img} alt={item.title} />
+              <Avatar size="large" url={ item.img } alt={item.title} />
 
               <div className="flex-grow grid content-around mx-3">
                 <div className=" flex justify-between">

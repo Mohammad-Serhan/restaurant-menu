@@ -1,4 +1,5 @@
 const Item = require("../models/snackItemModel"); // model
+const fs = require('fs');
 
 
 class itemController {
@@ -47,8 +48,17 @@ class itemController {
 
   async createItem(req, res) {
     try {
+      console.log("file = ", req.file);
+      console.log(req.body);
+      let img;
+      if (req.file) {
+        const pathName = req.file;
+        // console.log(pathName);
+        img = pathName;
+      }
+
       // get the item's details from req.body
-      const { title, category, price, img, ingrediants } = req.body;
+      const { title, category, price,  ingrediants } = req.body;
 
       // Check if the item is in use
       const existingItem = await Item.findOne({ title }).exec();
@@ -85,18 +95,36 @@ class itemController {
     }
   }
 
+
+  
+
   async editItem(req, res) {
     try {
-    
+              
+        // console.log(req.file);
+        // let img;
+        // if (req.file) {
+        //   const pathName = req.file.path;
+        //   console.log(pathName);
+          //  res.send(req.file, pathName);
+        //   img = {
+        //     data: fs.readFileSync( pathName),
+        //     contentType : req.file.mimetype
+        //   };
+        // }
+
+
         const updatedItem = await Item.updateOne(
           { _id: req.params.item_id },
-          { $set: { 
-            title: req.body.title ,
-            category: req.body.category ,
-            price: req.body.price ,
-            img: req.body.img ,
-            ingrediants: req.body.ingrediants }
-          } 
+          {
+            $set: {
+              title: req.body.title,
+              category: req.body.category,
+              price: req.body.price,
+              img: req.body.img,
+              ingrediants: req.body.ingrediants,
+            },
+          }
         );
 
       return res.status(200).send({
