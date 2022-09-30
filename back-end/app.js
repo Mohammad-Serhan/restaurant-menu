@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const config = require("./src/config/index");
 require("dotenv/config");           // // since when we push code , people can see our own username and password, so we installed a library --dotenv-- to hide them
-
+app.use('/uploads', express.static('uploads'));          // it makes folder statically so publically available
 
 app.use(bodyParser.json());         // can not read the request message unless transform it to json
 
@@ -16,7 +16,7 @@ app.use(bodyParser.json());         // can not read the request message unless t
 // You will have to specify the exact protocol + domain + port.
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: process.env.CORS_ORIGIN,
     credentials: true,
   })
 );

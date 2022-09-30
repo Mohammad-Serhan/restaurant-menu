@@ -1,5 +1,6 @@
 const Item = require("../models/snackItemModel"); // model
 const fs = require('fs');
+const  mongoose  = require("mongoose");
 
 
 class itemController {
@@ -48,13 +49,19 @@ class itemController {
 
   async createItem(req, res) {
     try {
-      console.log("file = ", req.file);
-      console.log(req.body);
+    // multer not only gives req.file, but also req.body
+      // console.log("file = ", req.file);
+      // console.log(req);
+      // we can get the image url from multer
       let img;
       if (req.file) {
-        const pathName = req.file;
-        // console.log(pathName);
-        img = pathName;
+        // img = req.file.path;
+        const host = req.hostname;
+        // for local host
+        const filePath = req.protocol + "://" + host  + ":8080/" + req.file.path;
+        // const filePath = req.protocol + "://" + host  + "/" + req.file.path;
+        // console.log(filePath);
+        img = filePath;
       }
 
       // get the item's details from req.body
@@ -70,6 +77,7 @@ class itemController {
 
       // create item's object
       const item = new Item({
+        _id: new mongoose.Types.ObjectId(),
         title: title,
         category: category,
         price: price,

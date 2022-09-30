@@ -12,20 +12,18 @@ const CreateItem = ({ addMenuItem }) => {
     handleSubmit,
   } = useForm();
 
-  const onSubmit = (data) => {
- 
 
+  const onSubmit = (data) => {
     data.img = image;
     const formData = new FormData();
-    console.log(data);
+    // console.log(data);
 
     for (let name in data) {
       formData.append(name, data[name]);
-      // console.log(name);
     }
-    for (let value of formData.values()) {
-      console.log(value);
-    }
+    // for (let value of formData.values()) {
+    //   console.log(value);
+    // }
     addMenuItem(formData);
   };
 
@@ -36,7 +34,6 @@ const CreateItem = ({ addMenuItem }) => {
     setImage(uploaded);
     // console.log(uploaded);
     // setImage(URL.createObjectURL(uploaded));
-    //  console.log(uploaded, URL.createObjectURL(uploaded));
   };
 
   return (

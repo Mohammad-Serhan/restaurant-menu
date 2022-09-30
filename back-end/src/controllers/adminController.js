@@ -88,6 +88,7 @@ class adminController {
 
       // create user's object
       const user = new Admin({
+        _id: new mongoose.Types.ObjectId(),
         email: email,
         password: hashedPassword,
       });

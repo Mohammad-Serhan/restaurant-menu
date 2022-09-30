@@ -25,7 +25,7 @@ const itemSchema = new Schema({
     min: 4,
   },
   img: {
-    type: Object,
+    type: String,
     require: true,
   },
   price: {

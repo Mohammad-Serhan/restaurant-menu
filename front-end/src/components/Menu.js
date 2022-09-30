@@ -22,7 +22,7 @@ function Menu({ items, deleteMenuItem }) {
     );
   }
 
-  console.log(typeof items[0].img);
+  // console.log(items[0].img);
 
   return (
     <div className="container px-5 py-12 mx-auto">
