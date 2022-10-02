@@ -25,10 +25,12 @@ class adminController {
           message: "Password is incorrect",
         });
       }
+      let ACCESS_TOKEN_SECRET =
+        eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJ1c2VyIjp7Il9pZCI6IjYzMjQ5YzVmZmRkN2VjZWJkMjhmMTc2MiIsImVtYWlsIjoiYWJjQGdtYWlsLmNvbSIsInl;
       // Generate a verification token with the admin's object
       const accessToken = jwt.sign(
         { user: existingAdmin },
-        process.env.ACCESS_TOKEN_SECRET,
+        ACCESS_TOKEN_SECRET,
         { expiresIn: "15m" }
       );
 

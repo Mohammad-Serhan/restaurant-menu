@@ -16,7 +16,7 @@ router.get(
   AuthController.verifyToken,
   AdminController.logOut
 );
-router.post("/register", AdminController.registerUser);
+// router.post("/register", AdminController.registerUser);
 // router.post("/auth/verify", AuthController.verifyToken);
 
 router.get("/getMenuItems", ItemController.getAllMenuItems);

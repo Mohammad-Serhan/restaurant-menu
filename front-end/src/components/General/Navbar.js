@@ -41,15 +41,15 @@ const navigate = useNavigate();
 
   const logOutAdmin = async() => {
   try {
-    const response = await logOut(
+     await logOut(
       `${localStorage.getItem("id")}/logout`,
       localStorage.getItem("token")
     );
     // console.log(response);
-    if(response.data){
+    // if(response.data){
       Auth.removeAuthData();
       navigate("/admin/login")
-    }
+    // }
   } catch (error) {
     console.log(error); 
   }

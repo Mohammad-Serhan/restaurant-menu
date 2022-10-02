@@ -4,18 +4,13 @@ import { useParams, useNavigate } from "react-router-dom";
 // import fakeItems from '../db';
 import Button from "../components/General/Button";
 import { editItem, getItem } from "../actions/menuItems.action";
-// import FileBase64 from 'react-file-base64';
 
-  // In most web pages, when a dialog opens, the background becomes inactive. This means that the content behind the modal dialog cannot be accessed until the user interacts with it. This is called an overlay effect.
-
-// stateless functional EditMenuItem component with 4 arguments
 const EditMenuItem = (  ) => {
   let { id } = useParams();
   const navigate = useNavigate();
 
 
   const imageInputRef = useRef(null);
-  const [preview, setPreview] = useState(null);
   const [image, setImage] = useState(null);
   const [itemDetails, setItemDetails] = useState([]);
 
@@ -30,16 +25,8 @@ const EditMenuItem = (  ) => {
   const onSubmit = async (event) => {
 
     event.id = parseInt(id);
-
-    // let finalimage = {
-    //   data: image ,
-    //   contentType: "image/png" 
-    // }
-    // console.log(image);
     event.img = image;
-    
     // console.log(event);
-    // console.log(preview);
      editMenuItem(event);
     setItemDetails('');
     navigate(-1);
@@ -56,59 +43,23 @@ const EditMenuItem = (  ) => {
   }
 
 
-        
-  // const arrayBufferToBase64 = (buffer) => {
-  //       var binary = '';
-  //       var bytes = [].slice.call(new Uint8Array(buffer));        
-  //       bytes.forEach((b) => binary += String.fromCharCode(b));        
-  //       return window.btoa(binary);
-  //   };
-
-
   useEffect(() => {
 
     const fetchData = async () => {
       let selectedSnackItem = await getItem(`/getMenuItems/${id}`)
       let item = selectedSnackItem.data.item;
-      console.log(item);
-      // var base64Flag = "data:image/png;base64,";
-      // var imageStr = btoa(
-      //   String.fromCharCode(...new Uint8Array(item.img.data))
-      // );
-
-      // item.img = base64Flag + imageStr;
-      console.log(item);
+    //   console.log(item);
       setItemDetails(item);
     };
     fetchData();
   }, [id]);
 
 
-  // useEffect(() => {
-  //   if (image) {
-  //     const reader = new FileReader();
-  //     reader.onloadend = () => {
-  //       setPreview(reader.result);
-  //       // console.log(reader.result);
-  //     };
-  //     reader.readAsDataURL(image);
-  //   } else {
-  //     setPreview(null);
-  //   }
-  // }, [image]);
-
 
   const onImageChange = (event) => {
     let file = event.target.files[0];
     console.log(file);
-    setImage(file);
-    // if (event.target.files) {
-      // file = event.target.files[0];
-      // console.log(file);
-      // setImage(file);
-    // }
-    // if (file && file.type.substr(0, 5) === 'image') setImage(file);
-    // else setImage(null);   
+    setImage(file); 
   }
 
 
@@ -169,11 +120,6 @@ const EditMenuItem = (  ) => {
                 accept="image/*"
                 onChange={onImageChange}
               />
-              {/* <FileBase64
-                multiple={false}
-                ref={imageInputRef}
-                onDone={onImageChange}
-              /> */}
             </div>
             {errors.img?.type === "required" && (
               <small className=" text-red-500"> {errors.img.message}</small>
@@ -303,14 +249,15 @@ const EditMenuItem = (  ) => {
   );
 
   return (
+    // In most web pages, when a dialog opens, the background becomes inactive. This means that the content behind the modal dialog cannot be accessed until the user interacts with it. This is called an overlay effect.
     // <!--Overlay Effect-->
     <div
-      className=" fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full " 
-        // showHideClassName
+      className=" fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full "
+      // showHideClassName
     >
       {/* <!--modal content--> */}
       <div className="modal-main relative top-20 mx-auto md:w-3/5 p-1 sm:p-5  border shadow-lg rounded-md bg-white">
-        <div className="text-center" onClick={ () => navigate(-1)}>
+        <div className="text-center" onClick={() => navigate(-1)}>
           <Button type="primaryClose" />
         </div>
         {itemForm}

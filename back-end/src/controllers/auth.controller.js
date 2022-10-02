@@ -15,9 +15,12 @@ class AuthController {
         });
       }
 
+let ACCESS_TOKEN_SECRET =
+  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJ1c2VyIjp7Il9pZCI6IjYzMjQ5YzVmZmRkN2VjZWJkMjhmMTc2MiIsImVtYWlsIjoiYWJjQGdtYWlsLmNvbSIsInl;
+      
       jwt.verify(
         token,
-        process.env.ACCESS_TOKEN_SECRET,
+        ACCESS_TOKEN_SECRET,
         function (err, decoded) {
           // console.log(err)
           if (err) {

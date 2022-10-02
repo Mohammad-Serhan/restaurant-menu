@@ -56,9 +56,10 @@ class itemController {
       let img;
       if (req.file) {
         // img = req.file.path;
+
+        // for local hostheroku --version
         const host = req.hostname;
-        // for local host
-        const filePath = req.protocol + "://" + host  + ":8080/" + req.file.path;
+        const filePath = req.protocol + "://" + host + ":8080/" + req.file.path;
         // const filePath = req.protocol + "://" + host  + "/" + req.file.path;
         // console.log(filePath);
         img = filePath;
