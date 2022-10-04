@@ -81,12 +81,17 @@ const Home = () => {
 
    const fetchData = async () => {
      const menu = await getMenu("/getMenuItems");
-     setMenuItems(menu.data.menuItems);
-     AllItems.current = menu.data.menuItems;
+     if(menu.data){
+      setMenuItems(menu.data.menuItems);
+      AllItems.current = menu.data.menuItems;
+     }
      // console.log(menu);
 
      const categories = await getAllCategories("/getCategories");
-     setAllCategories(categories.data.allCategories);
+      // console.log(categories);
+      if(categories.data) {
+        setAllCategories(categories.data.allCategories);
+      }
    };
 
   if (categories === null) {

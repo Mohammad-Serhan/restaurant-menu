@@ -95,7 +95,7 @@ const EditMenuItem = (  ) => {
                 <img
                   className="h-52 object-cover object-center flex-shrink-0 rounded-lg "
                   alt="snack"
-                  src={URL.createObjectURL(image) || itemDetails.img}
+                  src={image ? URL.createObjectURL(image) : itemDetails.img}
                   role="presentation"
                   onClick={() => imageInputRef.current.click()}
                 />
