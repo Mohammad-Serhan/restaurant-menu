@@ -16,7 +16,7 @@ class AuthController {
       }
 
 let ACCESS_TOKEN_SECRET =
-  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJ1c2VyIjp7Il9pZCI6IjYzMjQ5YzVmZmRkN2VjZWJkMjhmMTc2MiIsImVtYWlsIjoiYWJjQGdtYWlsLmNvbSIsInl;
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJ1c2VyIjp7Il9pZCI6IjYzMjQ5YzVmZmRkN2VjZWJkMjhmMTc2MiIsImVtYWlsIjoiYWJjQGdtYWlsLmNvbSIsInl";
       
       jwt.verify(
         token,
@@ -30,14 +30,14 @@ let ACCESS_TOKEN_SECRET =
             });
           }
           // console.log(decoded)
-          // return res.status(200).json({
-          //   authenticated: true,
-          //   email: decoded.admin.email,
-          //   name: decoded.admin.name ?? "Guest",
-          // });
-          req.admin = decoded.admin;
+          return res.status(200).json({
+            authenticated: true,
+            email: decoded.admin.email,
+            name: decoded.admin.name ?? "Guest",
+          });
+          // req.admin = decoded.admin;
           // console.log(decoded.admin);
-          next();
+          // next();
         }
       );
     } catch (error) {

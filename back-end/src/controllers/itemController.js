@@ -1,5 +1,4 @@
 const Item = require("../models/snackItemModel"); // model
-const fs = require('fs');
 const  mongoose  = require("mongoose");
 
 
@@ -50,17 +49,15 @@ class itemController {
   async createItem(req, res) {
     try {
     // multer not only gives req.file, but also req.body
-      // console.log("file = ", req.file);
       // console.log(req);
       // we can get the image url from multer
       let img;
       if (req.file) {
-        // img = req.file.path;
-
         // for local hostheroku --version
-        const host = req.hostname;
-        const filePath = req.protocol + "://" + host + ":8080/" + req.file.path;
-        // const filePath = req.protocol + "://" + host  + "/" + req.file.path;
+        const host = req.host;
+        // const filePath = req.protocol + "://" + host + ":8080/" + req.file.path;
+        // for API 
+        const filePath = req.protocol + "://" + host  + "/" + req.file.path;
         // console.log(filePath);
         img = filePath;
       }
@@ -109,19 +106,15 @@ class itemController {
 
   async editItem(req, res) {
     try {
-              
-        // console.log(req.file);
-        // let img;
-        // if (req.file) {
-        //   const pathName = req.file.path;
-        //   console.log(pathName);
-          //  res.send(req.file, pathName);
-        //   img = {
-        //     data: fs.readFileSync( pathName),
-        //     contentType : req.file.mimetype
-        //   };
-        // }
-
+       let img;
+       if (req.file) {
+         // for local hostheroku --version
+         const host = req.host;
+         // const filePath = req.protocol + "://" + host + ":8080/" + req.file.path;
+         const filePath = req.protocol + "://" + host + "/" + req.file.path;
+         // console.log(filePath);
+         img = filePath;
+       }
 
         const updatedItem = await Item.updateOne(
           { _id: req.params.item_id },
@@ -130,7 +123,7 @@ class itemController {
               title: req.body.title,
               category: req.body.category,
               price: req.body.price,
-              img: req.body.img,
+              img: img,
               ingrediants: req.body.ingrediants,
             },
           }

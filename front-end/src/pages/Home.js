@@ -11,6 +11,8 @@ import {
   deleteItem,
   addItem,
 } from "../actions/menuItems.action";
+import Auth from "../auth";
+
 
 // const allCategories = [
 //   "all",
@@ -19,6 +21,7 @@ import {
 // console.log(allCategories);
 
 const Home = () => {
+
   let AllItems = useRef(null);
   const [menuItems, setMenuItems] = useState(null);
   const [categories, setAllCategories] = useState(null);
@@ -44,10 +47,11 @@ const Home = () => {
 
   const addMenuItem = async (item) => {
     try {
-      // let response =
+    
        await addItem(`/addItem`, item);
-       fetchData();
-       toggleShowAddButton();
+            fetchData();
+            toggleShowAddButton();
+       
       // console.log(response);
       // if (response.data.created) {
         // AllItems.current = [...categories, item];
@@ -80,19 +84,25 @@ const Home = () => {
 
 
    const fetchData = async () => {
+   try {
+  
      const menu = await getMenu("/getMenuItems");
-     if(menu.data){
-      setMenuItems(menu.data.menuItems);
-      AllItems.current = menu.data.menuItems;
+     if (menu.data) {
+       setMenuItems(menu.data.menuItems);
+       AllItems.current = menu.data.menuItems;
      }
      // console.log(menu);
 
      const categories = await getAllCategories("/getCategories");
-      // console.log(categories);
-      if(categories.data) {
-        setAllCategories(categories.data.allCategories);
-      }
+     // console.log(categories);
+     if (categories.data) {
+       setAllCategories(categories.data.allCategories);
+     }
+   } catch (error) {
+      console.log(error.message);
    };
+
+}
 
   if (categories === null) {
     return (
@@ -115,6 +125,7 @@ const Home = () => {
       <div className="text-center my-6">
         <h2 className="text-3xl inline-block mr-5 ">Menu</h2>
         <div className="flex justify-center">
+          { Auth.isAuthenticated() ? <>
           {toggleShowItem ? (
             <div onClick={toggleShowAddButton}>
               <Button type="primaryClose" />
@@ -124,6 +135,8 @@ const Home = () => {
               <Button type="primaryPlus" text="add Item" />
             </div>
           )}
+          </>
+          :<></> }
         </div>
         <div className="mx-auto md:w-1/2">
           {toggleShowItem ? <CreateItem addMenuItem={addMenuItem} /> : ""}

@@ -13,11 +13,10 @@ const itemController = require("../../controllers/itemController");
 router.post("/login", AdminController.logInAdmin);
 router.get(
   "/:admin_id/logout",
-  AuthController.verifyToken,
   AdminController.logOut
 );
 // router.post("/register", AdminController.registerUser);
-// router.post("/auth/verify", AuthController.verifyToken);
+router.post("/auth/verify", AuthController.verifyToken);
 
 router.get("/getMenuItems", ItemController.getAllMenuItems);
 router.get("/getCategories", ItemController.getCategories);
@@ -68,11 +67,7 @@ const upload = multer({
 router.post("/addItem", upload.single("img"), itemController.createItem);
 // The upload.single('name the field that hold that file') line tells Multer to process the incoming image data and store it in the local file system
 
-router.put(
-  "/editItem/:item_id",
-  upload.single("myImg"),
-  ItemController.editItem
-);
+router.put("/editItem/:item_id", upload.single("img"), ItemController.editItem);
 
 
 module.exports = router;

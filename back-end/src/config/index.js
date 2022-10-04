@@ -5,18 +5,18 @@ if (envFound.error) {
     throw new Error("Couldn't find .env file ⚠️");
 }
 
-// const ENV = "DEV";
+const ENV = "DEV";
 
 module.exports = {
   app: {
     port: parseInt(process.env.PORT),
-    base_url: "http://localhost:8080",
+    base_url: "http://localhost:8080/",
   },
   database: {
-    local:
-      // ENV === "DEV"
-      //   ? process.env.DB_LOCAL
-      //   :
-      process.env.CONNECTION_URL,
+    local: 
+    // ENV === "DEV"
+    //   ? process.env.DB_LOCAL
+    //   :
+    process.env.CONNECTION_URL,
   },
 };

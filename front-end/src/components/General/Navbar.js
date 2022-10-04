@@ -52,6 +52,8 @@ const navigate = useNavigate();
     // }
   } catch (error) {
     console.log(error); 
+    Auth.removeAuthData();
+    navigate("/admin/login");
   }
   }
 

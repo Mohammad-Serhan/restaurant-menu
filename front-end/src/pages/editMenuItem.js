@@ -22,12 +22,18 @@ const EditMenuItem = (  ) => {
 
   
 
-  const onSubmit = async (event) => {
+  const onSubmit = async (data) => {
 
-    event.id = parseInt(id);
-    event.img = image;
-    // console.log(event);
-     editMenuItem(event);
+    data.id = parseInt(id);
+    data.img = image;
+    const formData = new FormData();
+    // console.log(data);
+
+    for (let name in data) {
+      formData.append(name, data[name]);
+    }
+    // console.log(data);
+     editMenuItem(formData);
     setItemDetails('');
     navigate(-1);
   };
@@ -58,7 +64,7 @@ const EditMenuItem = (  ) => {
 
   const onImageChange = (event) => {
     let file = event.target.files[0];
-    console.log(file);
+    // console.log(file);
     setImage(file); 
   }
 

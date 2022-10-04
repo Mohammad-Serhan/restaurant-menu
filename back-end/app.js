@@ -17,6 +17,7 @@ app.use(bodyParser.json());         // can not read the request message unless t
 app.use(
   cors({
     origin: "https://menu-admin1.netlify.app",
+    // origin: "http://localhost:3000",
     credentials: true,
   })
 );
