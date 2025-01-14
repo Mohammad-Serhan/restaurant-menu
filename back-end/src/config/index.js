@@ -13,10 +13,6 @@ module.exports = {
     base_url: "http://localhost:8080/",
   },
   database: {
-    local: 
-    // ENV === "DEV"
-    //   ? process.env.DB_LOCAL
-    //   :
-    process.env.CONNECTION_URL,
+    local: process.env.CONNECTION_URL,
   },
 };

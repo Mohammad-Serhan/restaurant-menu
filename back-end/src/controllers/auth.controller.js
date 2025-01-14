@@ -15,8 +15,8 @@ class AuthController {
         });
       }
 
-let ACCESS_TOKEN_SECRET =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJ1c2VyIjp7Il9pZCI6IjYzMjQ5YzVmZmRkN2VjZWJkMjhmMTc2MiIsImVtYWlsIjoiYWJjQGdtYWlsLmNvbSIsInl";
+        let ACCESS_TOKEN_SECRET =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJ1c2VyIjp7Il9pZCI6IjYzMjQ5YzVmZmRkN2VjZWJkMjhmMTc2MiIsImVtYWlsIjoiYWJjQGdtYWlsLmNvbSIsInl";
       
       jwt.verify(
         token,

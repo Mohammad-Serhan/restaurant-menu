@@ -16,15 +16,14 @@ app.use(bodyParser.json());         // can not read the request message unless t
 // You will have to specify the exact protocol + domain + port.
 app.use(
   cors({
-    origin: "https://menu-admin1.netlify.app",
-    // origin: "http://localhost:3000",
+    // origin: "https://menu-admin1.netlify.app",
+    origin: "http://localhost:3000",
     credentials: true,
   })
 );
 
 
 // Route Middleware
-// a function that executes when routes hit    "/admin"
 const adminRouter = require("./src/api/routes/adminRoute.js")
 app.use("/admin", adminRouter);             // everything in adminRouter has a prefix     "/admin"
 
